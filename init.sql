@@ -89,6 +89,7 @@ VALUES
     ('5WM3', 'X-treme', 'worker_main', NOW(), 'premiere insertion'),
     ('5WM4', 'X-treme', 'worker_main', NOW(), 'premiere insertion'),
     ('5WM5', 'X-treme', 'worker_main', NOW(), 'premiere insertion'),
+    ('5WM6', 'X-treme', 'worker_main', NOW(), 'premiere insertion'),
     ('5LM', 'X-treme', 'lab_main', NOW(), 'premiere insertion'),
     ('5WB1', 'X-treme', 'worker_builder', NOW(), 'premiere insertion'),
     ('5WB2', 'X-treme', 'worker_builder', NOW(), 'premiere insertion'),
