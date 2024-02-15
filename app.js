@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cocRouter = require('./routes/coc');
 
+const { expressjwt: jwt } = require("express-jwt");
+
 var app = express();
 
 // view engine setup
@@ -28,6 +30,13 @@ app.use(cors({
   preflightContinue: false,
   optionsSuccessStatus: 204
 }));
+
+app.use(
+    jwt({
+      secret: "COCGameZone",
+      algorithms: ["HS256"],
+    }).unless({ path: ["/coc/login"] })
+);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

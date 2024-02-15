@@ -3,6 +3,17 @@ const router = express.Router();
 const coc = require('../services/coc');
 
 
+router.post('/login', async function (req, res, next) {
+    const { login, password } = req.body;
+    try {
+        const loginResult = await coc.getLogin(login, password);
+        res.json(loginResult);
+    } catch (err) {
+        console.error(`Error while logging in`, err.message);
+        next(err);
+    }
+});
+
 router.get('/getAllWorkers', async function (req, res, next) {
     try {
         res.json(await coc.getAllWorkers());

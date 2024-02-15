@@ -7,28 +7,42 @@ USE coc;
 -- Suppression des tables si elles existent
 DROP TABLE IF EXISTS worker_list;
 DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS logins;
+
+-- Création de la table logins
+CREATE TABLE logins
+(
+    user_login VARCHAR(255) PRIMARY KEY,
+    password   VARCHAR(255)
+);
+
+-- Insertion des valeurs dans la table logins
+INSERT INTO logins
+VALUES ('XtremeNeox', 'MDPXtreme');
 
 -- Création de la table accounts
 CREATE TABLE IF NOT EXISTS accounts
 (
-    account_id VARCHAR(255) PRIMARY KEY
+    account_id VARCHAR(255) PRIMARY KEY,
+    user_login VARCHAR(255),
+    FOREIGN KEY (user_login) REFERENCES logins (user_login)
 );
 
 -- Insertion des valeurs dans la table accounts
-INSERT INTO accounts VALUES
-                         ('Xtreme'),
-                         ('X/treme'),
-                         ('X.treme'),
-                         ('X:treme'),
-                         ('X-treme');
+INSERT INTO accounts
+VALUES ('Xtreme', 'XtremeNeox'),
+       ('X/treme', 'XtremeNeox'),
+       ('X.treme', 'XtremeNeox'),
+       ('X:treme', 'XtremeNeox'),
+       ('X-treme', 'XtremeNeox');
 
 -- Création de la table worker_list
 CREATE TABLE IF NOT EXISTS worker_list
 (
-    worker_id VARCHAR(255) PRIMARY KEY,
-    account_id VARCHAR(255),
-    worker ENUM ('worker_main', 'lab_main', 'animals_main', 'worker_builder', 'lab_builder'),
-    work_end DATETIME,
+    worker_id    VARCHAR(255) PRIMARY KEY,
+    account_id   VARCHAR(255),
+    worker       ENUM ('worker_main', 'lab_main', 'animals_main', 'worker_builder', 'lab_builder'),
+    work_end     DATETIME,
     work_context VARCHAR(255),
     FOREIGN KEY (account_id) REFERENCES accounts (account_id)
 );
