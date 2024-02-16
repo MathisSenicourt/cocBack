@@ -16,7 +16,7 @@ router.post('/login', async function (req, res, next) {
 
 router.get('/getAllWorkers', async function (req, res, next) {
     try {
-        res.json(await coc.getAllWorkers());
+        res.json(await coc.getAllWorkers(req.auth.accounts));
     } catch (err) {
         console.error(`Error while getting users `, err.message);
         next(err);
@@ -25,10 +25,10 @@ router.get('/getAllWorkers', async function (req, res, next) {
 
 router.put('/updateWorkerDetails/:workerId', async function (req, res, next) {
     const workerId = req.params.workerId;
-    const { newWorkContext, newWorkEnd } = req.body;
+    const { accountId, newWorkContext, newWorkEnd } = req.body;
 
     try {
-        const result = await coc.updateWorkerDetails(workerId, newWorkContext, newWorkEnd);
+        const result = await coc.updateWorkerDetails(req.auth.accounts, workerId, newWorkContext, newWorkEnd);
         if (result.success) {
             res.json({ success: true, message: `Worker details updated successfully for worker ID: ${workerId}` });
         } else {
